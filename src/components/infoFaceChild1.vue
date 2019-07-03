@@ -1,7 +1,7 @@
 <template>
   <div class="infofacechild1" ref="infoC1Wrap" @click.self.right="infoC1RightMenuFun">
     <div @click.self.right="infoC1RightMenuFun">
-      <draggable class="info_child1_ul" @start="moveEnd" @click.right="infoC1RightMenuFun" element="ul" v-model="infoChild1Lists">
+      <draggable class="info_child1_ul" @start="moveEnd" @click.right="infoC1RightMenuFun" tag="ul" v-model="infoChild1Lists">
         <li
           class="info_child1_li"
           @click="infoChild1Fun(infoList.contract_name)"

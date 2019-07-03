@@ -1,5 +1,5 @@
 <template>
-  <div class="wrap" ref="wrap" v-focus @keyup.27.exact="keyWordNoLoginEsc" @keyup.112.exact="keyWordNoLoginF1" @keyup.113.exact="keyWordNoLoginF2" @keyup.114.exact="keyWordNoLoginF3" @keyup.115.exact="keyWordNoLoginF4" @keyup.116.exact="keyWordNoLoginF5" @keyup.123.exact="keyWordNoLoginF12" @keyup.enter.exact="keyWordNoLoginEnter" @keyup.ctrl.shift.123.exact="openDevTools" tabindex="0">
+  <div class="wrap" ref="wrap" v-focus @keyup.esc.exact="keyWordNoLoginEsc" @keyup.f1.exact="keyWordNoLoginF1" @keyup.f2.exact="keyWordNoLoginF2" @keyup.f3.exact="keyWordNoLoginF3" @keyup.f4.exact="keyWordNoLoginF4" @keyup.f12.exact="keyWordNoLoginF12" @keyup.enter.exact="keyWordNoLoginEnter" tabindex="0">
     <!-- 头部导航栏 -->
     <nav-top ref="navTop"></nav-top>
     <!-- 免责声明 -->
@@ -59,14 +59,13 @@ export default {
   data() {
     return {
       loginMarketShow: false, // 外盘登录界面默认隐藏
+      loginPass:""
     };
   },
   directives: {
     focus: {
     // 指令的定义
       inserted: function(el) {
-
-        
         el.focus();
       }
     }
@@ -81,7 +80,8 @@ export default {
     }
     document.onkeydown = document.onkeyup = document.onkeypress = function(event) {
       var e = event || window.event || arguments.callee.caller.arguments[0];
-      if (e && e.keyCode == 123 || e.keyCode == 112 || e.keyCode == 113 || e.keyCode == 114 || e.keyCode == 115 || e.keyCode == 117) {
+      // e.keyCode == 112 || e.keyCode == 113 || e.keyCode == 114 || e.keyCode == 115 ||
+      if (e && e.keyCode == 123) {
         return (false);
       }
     }
