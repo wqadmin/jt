@@ -15,7 +15,7 @@
       <div class="login_market_cont_userpass">
         <p>密码：</p>
         <input v-model="loginPass" type="password" placeholder="请输入密码">
-        <el-input v-model="loginPass" type="password" placeholder="请输入内容"></el-input>
+        <!-- <el-input v-model="loginPass" type="password" placeholder="请输入内容"></el-input> -->
         <!-- <el-input placeholder="请输入密码" v-model="loginPass" show-password></el-input> -->
       </div>
       <div class="login_market_cont_check">
