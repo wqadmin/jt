@@ -85,24 +85,26 @@ export default {
   components: {},
   data() {
     return {
-      newInfoFaceSellFiveLists: [ // 五档线卖出
-        {id: 1, name: "卖五", color: false},
-        {id: 2, name: "卖四", color: false},
-        {id: 3, name: "卖三", color: false},
-        {id: 4, name: "卖二", color: false},
-        {id: 5, name: "卖出", color: true},
+      newInfoFaceSellFiveLists: [
+        // 五档线卖出
+        { id: 1, name: "卖五", color: false },
+        { id: 2, name: "卖四", color: false },
+        { id: 3, name: "卖三", color: false },
+        { id: 4, name: "卖二", color: false },
+        { id: 5, name: "卖出", color: true }
       ],
-      newInfoFaceBuyFiveLists: [ // 五档线卖出
-        {id: 1, name: "买入", color: true},
-        {id: 2, name: "买二", color: false},
-        {id: 3, name: "买三", color: false},
-        {id: 4, name: "买四", color: false},
-        {id: 5, name: "买五", color: false},
+      newInfoFaceBuyFiveLists: [
+        // 五档线卖出
+        { id: 1, name: "买入", color: true },
+        { id: 2, name: "买二", color: false },
+        { id: 3, name: "买三", color: false },
+        { id: 4, name: "买四", color: false },
+        { id: 5, name: "买五", color: false }
       ],
-      infoFiveSellPrice: '', // 五档卖出
-      infoFiveSellNum: '', // 五档卖出
-      infoFiveBuyPrice: '', // 五档买入
-      infoFiveBuyNum: '', // 五档买入
+      infoFiveSellPrice: "", // 五档卖出
+      infoFiveSellNum: "", // 五档卖出
+      infoFiveBuyPrice: "", // 五档买入
+      infoFiveBuyNum: "", // 五档买入
       newInfoFace: "", // 最新涨跌中间信息
       timePriceHands: "", // 时间价格现手
       timeKlineFun: "", // 调用分时函数
@@ -114,17 +116,16 @@ export default {
       isCrossLine: false, // 分时十字线显隐
       websock: null, // 推送
       websocketBoolean: true, // 手动断开
-      infoC3WebSocketTimer: "", // 推送计时器
+      infoC3WebSocketTimer: "" // 推送计时器
     };
   },
-  created() {
-    
-  },
+  created() {},
   activated() {
     let that = this;
     this.initWebSocket(); // 开启推送
-    window.onbeforeunload = function () { // 页面刷新
-      sessionStorage.setItem('timeLine', false);
+    window.onbeforeunload = function() {
+      // 页面刷新
+      sessionStorage.setItem("timeLine", false);
     };
     that.infoC3GetTimerBoole = true;
     that.timeKlineFun = function(codeName) {
@@ -153,22 +154,24 @@ export default {
               if (index == 0) {
                 item.close = response.data.p_close;
               }
-              hh = item.time.slice(0, 2);// 小时
-              mm = item.time.slice(2, 4);// 分钟
+              hh = item.time.slice(0, 2); // 小时
+              mm = item.time.slice(2, 4); // 分钟
               hhmm = hh + ":" + mm;
-              for (let i = 0; i < trade_time.length; i++) {
-                if(hhmm == trade_time[i]) {
-                  var str = item.time + " " + item.close + " " + item.volume;
-                  arr.push(str);
-                }
-              }
+              var str = item.time + " " + item.close + " " + item.volume;
+              arr.push(str);
+              // for (let i = 0; i < trade_time.length; i++) {
+              //   if(hhmm == trade_time[i]) {
+              //     var str = item.time + " " + item.close + " " + item.volume;
+              //     arr.push(str);
+              //   }
+              // }
             });
             makeTimeLine2(arr, response.data, trade_time, endTime);
             that.dataData = res.data;
-            that.infoFiveSellPrice = res.data.data.five_gear.ask[4].price;// 五档卖出
-            that.infoFiveSellNum = res.data.data.five_gear.ask[4].number;// 五档卖出
-            that.infoFiveBuyPrice = res.data.data.five_gear.bid[0].price;// 五档买入
-            that.infoFiveBuyNum = res.data.data.five_gear.bid[0].number;// 五档买入
+            that.infoFiveSellPrice = res.data.data.five_gear.ask[4].price; // 五档卖出
+            that.infoFiveSellNum = res.data.data.five_gear.ask[4].number; // 五档卖出
+            that.infoFiveBuyPrice = res.data.data.five_gear.bid[0].price; // 五档买入
+            that.infoFiveBuyNum = res.data.data.five_gear.bid[0].number; // 五档买入
             that.newInfoFace = res.data.data.data; // 最新涨跌中间信息
             that.timePriceHands = res.data.data.tick; // 时间价格现手
             // if (that.infoC3GetTimerBoole) {
@@ -188,13 +191,14 @@ export default {
   mounted: function() {
     let that = this;
     // that.InfoKlineCode = that.$store.state.codeName; // 合约名字
-    
+
     $(window).resize(function() {
       window.myChart.resize();
     });
   },
   methods: {
-    initWebSocket(){ //初始化weosocket
+    initWebSocket() {
+      //初始化weosocket
       const wsuri = "ws://47.52.155.199:1314";
       this.websock = new WebSocket(wsuri);
       this.websock.onmessage = this.websocketonmessage;
@@ -202,7 +206,8 @@ export default {
       this.websock.onerror = this.websocketonerror;
       this.websock.onclose = this.websocketclose;
     },
-    websocketonopen(){ //连接建立之后执行send方法发送数据
+    websocketonopen() {
+      //连接建立之后执行send方法发送数据
       let that = this;
       let actions = {
         nozzle: "time_sharing",
@@ -214,24 +219,27 @@ export default {
         that.websocketsend(JSON.stringify(actions));
       }, 2000);
     },
-    websocketonerror(){//连接建立失败重连
+    websocketonerror() {
+      //连接建立失败重连
       setTimeout(() => {
-        this.websock.close() //离开路由之后断开websocket连接
+        this.websock.close(); //离开路由之后断开websocket连接
         this.initWebSocket();
         if (navigator.onLine) {
           // console.log("重连 有.... 网");
           this.websocketBoolean = true;
-        }else{
+        } else {
           // console.log("重连 没 网");
           this.$message.error("请查看您的网络连接");
           this.websocketBoolean = false;
-        };
+        }
       }, 20000);
     },
-    websocketsend(Data){//数据发送
+    websocketsend(Data) {
+      //数据发送
       this.websock.send(Data);
     },
-    websocketonmessage(e){ //数据接收
+    websocketonmessage(e) {
+      //数据接收
       let that = this;
       if (e.data.slice(0, 4) != "连接成功") {
         const redata = JSON.parse(e.data);
@@ -242,55 +250,60 @@ export default {
         var arr = [];
         var hh, mm, hhmm;
         var trade_time = that.getTimes(response.trading_time);
+
         $.each(response.time, function(index, item) {
           if (index == 0) {
             item.close = response.data.p_close;
           }
-          hh = item.time.slice(0, 2);// 小时
-          mm = item.time.slice(2, 4);// 分钟
+          hh = item.time.slice(0, 2); // 小时
+          mm = item.time.slice(2, 4); // 分钟
           hhmm = hh + ":" + mm;
-          for (let i = 0; i < trade_time.length; i++) {
-            if(hhmm == trade_time[i]) {
-              var str = item.time + " " + item.close + " " + item.volume;
-              arr.push(str);
-            }
-          }
+          var str = item.time + " " + item.close + " " + item.volume;
+          arr.push(str);
+          // for (let i = 0; i < trade_time.length; i++) {
+          //   if(hhmm == trade_time[i]) {
+          //     var str = item.time + " " + item.close + " " + item.volume;
+          //     arr.push(str);
+          //   }
+          // }
         });
         makeTimeLine2(arr, response.data, trade_time, endTime);
         that.dataData = redata.data;
-        that.infoFiveSellPrice = redata.data.five_gear.ask[4].price;// 五档卖出
-        that.infoFiveSellNum = redata.data.five_gear.ask[4].number;// 五档卖出
-        that.infoFiveBuyPrice = redata.data.five_gear.bid[0].price;// 五档买入
-        that.infoFiveBuyNum = redata.data.five_gear.bid[0].number;// 五档买入
+        that.infoFiveSellPrice = redata.data.five_gear.ask[4].price; // 五档卖出
+        that.infoFiveSellNum = redata.data.five_gear.ask[4].number; // 五档卖出
+        that.infoFiveBuyPrice = redata.data.five_gear.bid[0].price; // 五档买入
+        that.infoFiveBuyNum = redata.data.five_gear.bid[0].number; // 五档买入
         that.newInfoFace = redata.data.data; // 最新涨跌中间信息
         that.timePriceHands = redata.data.tick; // 时间价格现手
         window.myChart.resize(); // 调整分时的宽高
       }
     },
-    websocketclose(e){  //关闭
+    websocketclose(e) {
+      //关闭
       // console.log('断开连接',e);
       let that = this;
       setTimeout(() => {
         if (that.websocketBoolean) {
-          that.websock.close() //离开路由之后断开websocket连接
+          that.websock.close(); //离开路由之后断开websocket连接
           that.initWebSocket();
         }
         if (navigator.onLine) {
           // console.log("断开后有网");
           that.websocketBoolean = true;
-        }else{
+        } else {
           // console.log("断开后没网");
           that.websocketBoolean = false;
-        };
+        }
       }, 2000);
     },
 
-    infoC3CrossLineFun() { // 十字线显隐
+    infoC3CrossLineFun() {
+      // 十字线显隐
       this.isCrossLine = !this.isCrossLine;
       if (this.isCrossLine) {
-        sessionStorage.setItem('timeLine', true); // 分时十字线显示
+        sessionStorage.setItem("timeLine", true); // 分时十字线显示
       } else {
-        sessionStorage.setItem('timeLine', false); // 分时十字线隐藏
+        sessionStorage.setItem("timeLine", false); // 分时十字线隐藏
       }
       this.timeKlineFun(this.$store.state.codeName);
     },
@@ -341,15 +354,15 @@ export default {
     //切换路由 离开页面清除计时器
     clearInterval(this.infoC3GetTimer);
     this.infoC3GetTimerBoole = false; // 计时器清除
-    
+
     next();
   },
   deactivated() {
-    sessionStorage.setItem('timeLine', false); // 离开十字线隐藏
+    sessionStorage.setItem("timeLine", false); // 离开十字线隐藏
     this.isCrossLine = false; // 离开十字线隐藏
-    
+
     this.websocketBoolean = false;
-    this.websock.close() //离开路由之后断开websocket连接
+    this.websock.close(); //离开路由之后断开websocket连接
     clearInterval(this.infoC3WebSocketTimer); // 推送计时器
   }
 };

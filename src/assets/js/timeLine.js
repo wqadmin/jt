@@ -1,4 +1,5 @@
 import echarts from "echarts";
+
 function makeTimeLine2(arr, info, time_arr, endTime) {
   var chart = document.getElementById("main");
   let tfC3PointNum = Number(window.sessionStorage.getItem("tfC3PointNum"));
@@ -13,13 +14,13 @@ function makeTimeLine2(arr, info, time_arr, endTime) {
     }
     var maxHeight = Math.max.apply(null, arrHeight);
     var minHeight = Math.min.apply(null, arrHeight);
-    var yesterday = parseFloat(info.p_close);//p_close昨收 info.high最高 info.low最低
-    if(yesterday == 0){
-      yesterday =parseFloat(info.low);
+    var yesterday = parseFloat(info.p_close); //p_close昨收 info.high最高 info.low最低
+    if (yesterday == 0) {
+      yesterday = parseFloat(info.low);
     }
     var up_amplitude = Math.abs(((maxHeight - yesterday) / yesterday) * 100) * 1.1;
     var down_amplitude = Math.abs(((minHeight - yesterday) / yesterday) * 100) * 1.1;
-    
+
     var data = split_data(arr, yesterday, time_arr);
     // var avg = data.average[data.average.length - 1];
     var max = 0;
@@ -46,11 +47,19 @@ function makeTimeLine2(arr, info, time_arr, endTime) {
         alwaysShowContent: true,
         axisPointer: {
           type: "cross",
-          lineStyle: { type: "solid", color: "#aaa", opacity: 0 }, // 十字线实线
-          crossStyle: { type: "solid", color: "#aaa", opacity: 0 }, // 十字线实线
+          lineStyle: {
+            type: "solid",
+            color: "#aaa",
+            opacity: 0
+          }, // 十字线实线
+          crossStyle: {
+            type: "solid",
+            color: "#aaa",
+            opacity: 0
+          }, // 十字线实线
           label: {
             precision: tfC3PointNum // 纵坐标显示小数位
-          }
+          },
         },
         backgroundColor: "rgba(0, 0, 0, 1)",
         padding: 5,
@@ -69,8 +78,7 @@ function makeTimeLine2(arr, info, time_arr, endTime) {
           backgroundColor: "#777"
         }
       },
-      grid: [
-        {
+      grid: [{
           left: "66px",
           right: "76px",
           top: "2%",
@@ -91,8 +99,7 @@ function makeTimeLine2(arr, info, time_arr, endTime) {
           backgroundColor: "#777"
         }
       },
-      grid: [
-        {
+      grid: [{
           left: "66px",
           right: "76px",
           top: "2%",
@@ -105,8 +112,7 @@ function makeTimeLine2(arr, info, time_arr, endTime) {
           height: "31%"
         }
       ],
-      xAxis: [
-        {
+      xAxis: [{
           nameLocation: "center",
           nameTextStyle: {
             color: "#FFF"
@@ -171,7 +177,7 @@ function makeTimeLine2(arr, info, time_arr, endTime) {
               // color: "yellow",
               fontSize: 13
             },
-            formatter: function(value, index) {
+            formatter: function (value, index) {
               if (index % 120 == 0) {
                 return value == undefined ? endTime : value;
               } else {
@@ -198,8 +204,7 @@ function makeTimeLine2(arr, info, time_arr, endTime) {
           }
         }
       ],
-      yAxis: [
-        {
+      yAxis: [{
           type: "value",
           scale: true,
           gridIndex: 0,
@@ -217,7 +222,7 @@ function makeTimeLine2(arr, info, time_arr, endTime) {
           axisLine: {
             show: true,
             lineStyle: {
-              color: function(value) {
+              color: function (value) {
                 return axis_label_text_style(value, yesterday);
               }
             }
@@ -227,7 +232,7 @@ function makeTimeLine2(arr, info, time_arr, endTime) {
           },
           axisLabel: {
             show: true,
-            formatter: function(value) {
+            formatter: function (value) {
               return value.toFixed(tfC3PointNum);
             }
           },
@@ -255,7 +260,7 @@ function makeTimeLine2(arr, info, time_arr, endTime) {
             textStyle: {
               color: "#F0F888"
             },
-            formatter: function(value) {
+            formatter: function (value) {
               return value == 0 || value == max ? "" : value - (value % 10);
             }
           },
@@ -308,14 +313,14 @@ function makeTimeLine2(arr, info, time_arr, endTime) {
           axisLabel: {
             show: true,
             textStyle: {
-              color: function(value) {
+              color: function (value) {
                 return axis_label_text_style(value, 0);
               }
             },
-            formatter: function(value) {
-              return value >= 0
-                ? "+" + value.toFixed(2) + "%"
-                : "-" + (-value).toFixed(2) + "%";
+            formatter: function (value) {
+              return value >= 0 ?
+                "+" + value.toFixed(2) + "%" :
+                "-" + (-value).toFixed(2) + "%";
             }
           },
           splitArea: {
@@ -351,7 +356,7 @@ function makeTimeLine2(arr, info, time_arr, endTime) {
           axisLabel: {
             show: true,
             textStyle: {
-              color: function(value) {
+              color: function (value) {
                 if (value > 0) {
                   return "#ff3232";
                 } else if (value == 0) {
@@ -361,11 +366,10 @@ function makeTimeLine2(arr, info, time_arr, endTime) {
                 }
               }
             },
-            formatter: function(value) {
-              console.log(value);
-              return value >= 0
-                ? value.toFixed(2) + "%"
-                : (-value).toFixed(2) + "%";
+            formatter: function (value) {
+              return value >= 0 ?
+                value.toFixed(2) + "%" :
+                (-value).toFixed(2) + "%";
             }
           },
           splitArea: {
@@ -373,8 +377,7 @@ function makeTimeLine2(arr, info, time_arr, endTime) {
           }
         }
       ],
-      series: [
-        {
+      series: [{
           name: "现价",
           type: "line",
           xAxisIndex: 0,
@@ -428,8 +431,16 @@ function makeTimeLine2(arr, info, time_arr, endTime) {
         tooltip: {
           axisPointer: {
             type: "cross",
-            lineStyle: { type: "solid", color: "#aaa", opacity: 1 }, // 十字线实线
-            crossStyle: { type: "solid", color: "#aaa", opacity: 1 }, // 十字线实线
+            lineStyle: {
+              type: "solid",
+              color: "#aaa",
+              opacity: 1
+            }, // 十字线实线
+            crossStyle: {
+              type: "solid",
+              color: "#aaa",
+              opacity: 1
+            }, // 十字线实线
           }
         }
       });
@@ -449,7 +460,7 @@ function split_data(rawData, yesterday, time_arr) {
   var datas = [],
     number = [],
     price = [],
-    times= [],
+    times = [],
     average = [],
     average_num = [],
     rates = [],
@@ -480,6 +491,7 @@ function split_data(rawData, yesterday, time_arr) {
     increase: increase
   };
 }
+
 function axis_label_text_style(value, num) {
   value = Math.round(value * 100) / 100;
   num = Math.round(num * 100) / 100;
@@ -491,12 +503,13 @@ function axis_label_text_style(value, num) {
     return "#00e600";
   }
 }
+
 function timeLine(params) {
   var names = [],
     values = [],
     colors = [],
     time = "";
-  $.each(params, function(i, val) {
+  $.each(params, function (i, val) {
     names.push(val.seriesName);
     values.push(val.value);
     colors.push(val.color);
@@ -525,4 +538,6 @@ function af(data) {
   }
   return result;
 }
-export { makeTimeLine2 };
+export {
+  makeTimeLine2
+};
