@@ -2166,7 +2166,7 @@ export default {
           data: {
             nozzle: "day_entrust_log",
             token: userToken,
-            type: index
+            type: index //0 全部订单 1 挂单中 2 已成交 3 已撤销
           }
         })
         .then(res => {
@@ -2536,18 +2536,19 @@ export default {
     websocketonopen(){ //连接建立之后执行send方法发送数据
       let that = this;
       let actions = {};
-      if (that.webBtnId == "1") {
+      if (that.webBtnId == "1") { //持仓
         actions = {
           nozzle: "depot_log_info",
           token: that.$store.state.tokenStr,
-          code: that.$store.state.codeName
+          code: that.$store.state.codeName,
+          type: 1
         };
         this.websocketsend(JSON.stringify(actions));
         clearInterval(that.infoOutWebSocketTimer); // 推送计时器
         that.infoOutWebSocketTimer = setInterval(() => {
           that.websocketsend(JSON.stringify(actions));
         }, 2000);
-      } else if (that.webBtnId == "2") {
+      } else if (that.webBtnId == "2") { //委托
         actions = {
           nozzle: "entrust_log_info",
           token: that.$store.state.tokenStr,
@@ -2636,6 +2637,7 @@ export default {
           if (that.webBtnId == "1") {
             // 持仓信息
             that.depotTopContLists = redata.data.depot_log; // 上面的持仓内容
+            that.entrustBtmContLists = redata.data.day_entrust_log; // 委托内容
           } else if (that.webBtnId == "2") {
             // 委托信息
             that.entrustBtmContLists = redata.data.day_entrust_log; // 委托内容
