@@ -150,6 +150,7 @@ export default {
             var arr = [];
             var hh, mm, hhmm;
             var trade_time = that.getTimes(response.trading_time);
+            console.log(trade_time);
             $.each(response.time, function(index, item) {
               if (index == 0) {
                 item.close = response.data.p_close;
@@ -215,9 +216,9 @@ export default {
       };
       this.websocketsend(JSON.stringify(actions));
       clearInterval(that.infoC3WebSocketTimer); // 推送计时器
-      that.infoC3WebSocketTimer = setInterval(() => {
-        that.websocketsend(JSON.stringify(actions));
-      }, 2000);
+      // that.infoC3WebSocketTimer = setInterval(() => {
+      //   that.websocketsend(JSON.stringify(actions));
+      // }, 2000);
     },
     websocketonerror() {
       //连接建立失败重连
@@ -312,6 +313,10 @@ export default {
       var today = new Date(new Date().setHours(0, 0, 0, 0)) / 1000;
       var array = [];
       //0:"06:00-24:00"1:"00:00-05:00"
+      // 0: "17:15-24:00"
+      // 1: "00:00-03:00"
+      // 2: "09:15-12:00"
+      // 3: "13:00-16:30"
       $.each(range, function(index, item) {
         item = item.split("-");
         var data = [];

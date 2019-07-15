@@ -468,17 +468,21 @@ function split_data(rawData, yesterday, time_arr) {
   var num = 0,
     arr_up;
   var price_total = 0,
+    total = 0,
     num_total = 0;
   for (var i = 0; i < rawData.length; i++) {
     var arr = rawData[i].split(" ");
-    number.push(arr[2]);
-    price.push(parseFloat(arr[1]));
+    // console.log(arr);
+    number.push(arr[2]); //交易量
+    price.push(parseFloat(arr[1])); // 最新价
     datas.push(arr);
     increase.push((arr[1] - yesterday).toFixed(2));
     rates.push((((arr[1] - yesterday) / yesterday) * 100).toFixed(2));
     price_total += parseFloat(arr[1]);
-    num_total = parseFloat(arr[2]);
-    average.push(parseFloat((price_total / (i + 1)).toFixed(6))); //均价线
+    num_total += parseFloat(arr[2]);
+    total += parseFloat(arr[1]) * parseFloat(arr[2]); // 总的价格乘数量
+    // average.push(parseFloat((price_total / (i + 1)).toFixed(6))); //均价线
+    average.push(parseFloat((total / num_total).toFixed(6))); //均价线
   }
   return {
     data: datas,
