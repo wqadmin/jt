@@ -472,7 +472,6 @@ function split_data(rawData, yesterday, time_arr) {
     num_total = 0;
   for (var i = 0; i < rawData.length; i++) {
     var arr = rawData[i].split(" ");
-    // console.log(arr);
     number.push(arr[2]); //交易量
     price.push(parseFloat(arr[1])); // 最新价
     datas.push(arr);

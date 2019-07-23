@@ -235,14 +235,13 @@ export default {
       // 调用K线
       // console.log(codeName, time);
       clearInterval(that.infoC4GetTimer);
-      
       window.sessionStorage.setItem("index", 1);
       window.sessionStorage.setItem("short", codeName); // 存下合约名画线下单用
       let kUrl = {
         nozzle: "kline_sharing",
         code: codeName,
         period: time
-      }
+      };
       that.klineWidth = $(".info_face_left").width();
       that.klineHeight = $(".info_face_left").height();
       that.kline = new Kline({

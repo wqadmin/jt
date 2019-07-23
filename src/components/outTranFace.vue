@@ -2751,16 +2751,16 @@ export default {
       if (this.$store.state.isShowAlertTface) {
         // 已弹出
         if (this.$store.state.isShowTf) {
-          this.$store.commit("isShowTfFun", false); // // 已登录按F12外盘显隐控制
+          this.$store.commit("isShowTfFun", false); // 已登录按F12外盘显隐控制
         } else {
-          this.$store.commit("isShowTfFun", true); // // 已登录按F12外盘显隐控制
+          this.$store.commit("isShowTfFun", true); // 已登录按F12外盘显隐控制
         }
       } else {
         // 未弹出
         if (this.$store.state.isShowTf) {
-          this.$store.commit("isShowTfFun", false); // // 已登录按F12外盘显隐控制
+          this.$store.commit("isShowTfFun", false); // 已登录按F12外盘显隐控制
         } else {
-          this.$store.commit("isShowTfFun", true); // // 已登录按F12外盘显隐控制
+          this.$store.commit("isShowTfFun", true); // 已登录按F12外盘显隐控制
         }
         if (this.$store.state.infoFaceHeight) {
           this.$store.commit("infoFaceHeightFun", false); // 已登录点击F12按钮高低控制
@@ -2941,15 +2941,17 @@ export default {
           this.msgDepot.depotinfo = this.depotTopContLists[i]; // 选中的合约信息
           this.msgDepotClose.depotinfo = this.depotTopContLists[i]; // 选中平仓的合约信息
           this.infoClickTopBtnsFun(this.depotTopContLists[i].exchange, this.depotTopContLists[i].contract_name);
+          console.log(this.depotTopContLists[i].contract_name);
+          this.$store.commit("changeCodeNameFun", this.depotTopContLists[i].contract_name);
+          this.websocketonopen(); // 切换合约后推送重新请求
+          this.$parent.$refs.route.$refs.infoRoute.websocketonopen(); // 调用其他路由推送
           if (this.$route.path == "/wrap/infoFace/infoFaceChild2") {
             this.$parent.$refs.route.$refs.infoRoute.infoClickTopBtnsFun(this.depotTopContLists[i].exchange, 1);
             this.$parent.$refs.route.$refs.infoRoute.infoTopBtnFun(this.depotTopContLists[i].exchange, 1);
-            this.$parent.$refs.route.$refs.infoRoute.websocketonopen(); // 推送
             setTimeout(() => {
               this.$parent.$refs.route.$refs.infoRoute.infoContsFun(this.depotTopContLists[i].contract_name);
             }, 1000);
           }
-          this.$store.commit("changeCodeNameFun", this.depotTopContLists[i].contract_name); // 存下select选中合约的名字
           if (this.$route.path == "/wrap/infoFace/infoFaceChild3") {
             this.$parent.$refs.route.$refs.infoRoute.timeKlineFun(this.$store.state.codeName); // 调用C3中改变选中的合约名
           }
