@@ -150,7 +150,6 @@ export default {
             var arr = [];
             var hh, mm, hhmm;
             var trade_time = that.getTimes(response.trading_time);
-            console.log(trade_time);
             $.each(response.time, function(index, item) {
               if (index == 0) {
                 item.close = response.data.p_close;
