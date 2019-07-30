@@ -216,9 +216,9 @@ export default {
       };
       this.websocketsend(JSON.stringify(actions));
       clearInterval(that.infoC3WebSocketTimer); // 推送计时器
-      // that.infoC3WebSocketTimer = setInterval(() => {
-      //   that.websocketsend(JSON.stringify(actions));
-      // }, 2000);
+      that.infoC3WebSocketTimer = setInterval(() => {
+        that.websocketsend(JSON.stringify(actions));
+      }, 2000);
     },
     websocketonerror() {
       //连接建立失败重连
@@ -275,7 +275,9 @@ export default {
         that.infoFiveBuyPrice = redata.data.five_gear.bid[0].price; // 五档买入
         that.infoFiveBuyNum = redata.data.five_gear.bid[0].number; // 五档买入
         that.newInfoFace = redata.data.data; // 最新涨跌中间信息
-        that.timePriceHands = redata.data.tick; // 时间价格现手
+        if (redata.data.tick.length != 0) {
+          that.timePriceHands = redata.data.tick; // 时间价格现手
+        }
         window.myChart.resize(); // 调整分时的宽高
       }
     },

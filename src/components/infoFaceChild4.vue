@@ -336,7 +336,9 @@ export default {
         that.infoFiveBuyPrice = redata.data.five_gear.bid[0].price;// 五档买入
         that.infoFiveBuyNum = redata.data.five_gear.bid[0].number;// 五档买入
         that.newInfoFace = redata.data.data; // 最新涨跌中间信息
-        that.timePriceHands = redata.data.tick; // 时间价格现手
+        if (redata.data.tick.length != 0) {
+          that.timePriceHands = redata.data.tick; // 时间价格现手
+        }
       }
     },
     websocketclose(e){  //关闭
