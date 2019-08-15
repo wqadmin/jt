@@ -90,7 +90,7 @@
         :key="menuList.id"
         :class="{tf_right_menu_li_active:menuList.isClicked == true}"
       >
-        <a :name="menuList.name">{{menuList.name}}</a>
+        <a :name="menuList.name">{{menuList.zhName}}</a>
       </li>
     </ul>
   </div>
@@ -134,23 +134,23 @@ export default {
       activeTopMenu: 0, // 初始位置
       activeLeftMenu: 0, // 初始位置
       menuLists: [
-        {id: 1, name: "MACD"},
-        {id: 2, name: "KDJ"},
-        {id: 3, name: "StochRSI"},
-        {id: 4, name: "RSI"},
-        {id: 5, name: "DMI"},
-        {id: 6, name: "OBV"},
-        {id: 7, name: "BOLL"},
-        {id: 8, name: "SAR"},
-        {id: 9, name: "DMA"},
-        {id: 10, name: "TRIX"},
-        {id: 11, name: "BRAR"},
-        {id: 12, name: "VR"},
-        {id: 13, name: "EMV"},
-        {id: 14, name: "WR"},
-        {id: 15, name: "ROC"},
-        {id: 16, name: "MTM"},
-        {id: 17, name: "PSY"},
+        {id: 1, name: "MACD", zhName: "平滑异同移动平均线"},
+        {id: 2, name: "KDJ", zhName: "随机指标"},
+        {id: 3, name: "StochRSI", zhName: "随机相对强弱指数"},
+        {id: 4, name: "RSI", zhName: "相对强弱指数"},
+        {id: 5, name: "DMI", zhName: "动向指数"},
+        {id: 6, name: "OBV", zhName: "能量潮"},
+        {id: 7, name: "BOLL", zhName: "布林线指标"},
+        {id: 8, name: "SAR", zhName: "止损点"},
+        {id: 9, name: "DMA", zhName: "平均线差"},
+        {id: 10, name: "TRIX", zhName: "三重指数平滑平均线"},
+        {id: 11, name: "BRAR", zhName: "人气意愿指标"},
+        {id: 12, name: "VR", zhName: "VR成交量比率"},
+        {id: 13, name: "EMV", zhName: "简易波动指标"},
+        {id: 14, name: "WR", zhName: "威廉指标"},
+        {id: 15, name: "ROC", zhName: "异同离差变化率指数"},
+        {id: 16, name: "MTM", zhName: "MTM动力指标"},
+        {id: 17, name: "PSY", zhName: "心理线"},
       ],
       newInfoFaceSellFiveLists: [ // 五档线卖出
         {id: 1, name: "卖五", color: false},
@@ -413,7 +413,7 @@ export default {
 .tf_right_menu {
   position: fixed!important;
   z-index: 2500!important;
-  width: 150px!important;
+  width: 170px!important;
   height: 200px!important;
   background: white;
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.4);
