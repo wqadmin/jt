@@ -42,23 +42,23 @@ export default {
   created() {},
   mounted: function() {
     let that = this;
-    that
-      .$http({ //行情登录页面
-        url: "/",
-        method: "post",
-        data: {
-          nozzle: "login_info"
-        }
-      })
-      .then(res => {
-        if (res.data.code == 1) {
-          that.loginSelected = res.data.data.server[0].name; // 默认第一个
-          that.loginOptions = res.data.data.server; // 服务器名字
-          that.loginSoftwareName = res.data.data.name; //软件名
-        } else if (res.data.code == 0 || res.data.code == -1) {
-          that.$message.error(res.data.msg);
-        }
-      });
+    // that
+    //   .$http({ //行情登录页面
+    //     url: "/",
+    //     method: "post",
+    //     data: {
+    //       nozzle: "login_info"
+    //     }
+    //   })
+    //   .then(res => {
+    //     if (res.data.code == 1) {
+    //       that.loginSelected = res.data.data.server[0].name; // 默认第一个
+    //       that.loginOptions = res.data.data.server; // 服务器名字
+    //       that.loginSoftwareName = res.data.data.name; //软件名
+    //     } else if (res.data.code == 0 || res.data.code == -1) {
+    //       that.$message.error(res.data.msg);
+    //     }
+    //   });
   },
   methods: {
     //登录主页
@@ -91,7 +91,8 @@ export default {
   bottom: 0;
   margin: auto;
   z-index: 1500;
-  background: url("../assets/img/loginBg.jpg") 0 0 no-repeat / 100% 100%;
+  background: url("../assets/img/loginBg.jpg") 0 0 no-repeat;
+  background-size: 100% 100%;
   outline: none;
 }
 .login_first_cont {
